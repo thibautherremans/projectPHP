@@ -25,6 +25,8 @@
             <input type="password" placeholder="password" name="password">
             <input type="submit" placeholder="log-in" name="submit">
         </form>
+
+        <a href="register.php">make an account</a>
     </main>
 
     //include van footer
