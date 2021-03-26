@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Gegenereerd op: 26 mrt 2021 om 12:17
+-- Gegenereerd op: 26 mrt 2021 om 12:31
 -- Serverversie: 5.7.24
 -- PHP-versie: 7.2.14
 
@@ -25,13 +25,13 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `comment`
+-- Tabelstructuur voor tabel `comments`
 --
 
-CREATE TABLE `comment` (
+CREATE TABLE `comments` (
   `id` int(255) NOT NULL,
   `user_id` int(255) NOT NULL,
-  `photo_id` int(255) NOT NULL,
+  `post_id` int(255) NOT NULL,
   `post_date` date NOT NULL,
   `text` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -52,14 +52,14 @@ CREATE TABLE `likes` (
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `post`
+-- Tabelstructuur voor tabel `posts`
 --
 
-CREATE TABLE `post` (
+CREATE TABLE `posts` (
   `id` int(11) NOT NULL,
   `user_id` int(255) NOT NULL,
   `likes` int(255) NOT NULL,
-  `comment` varchar(300) NOT NULL,
+  `comments` varchar(300) NOT NULL,
   `mediafile` varchar(500) NOT NULL,
   `audiofile` varchar(255) NOT NULL,
   `description` text NOT NULL
@@ -85,9 +85,9 @@ CREATE TABLE `users` (
 --
 
 --
--- Indexen voor tabel `comment`
+-- Indexen voor tabel `comments`
 --
-ALTER TABLE `comment`
+ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -97,9 +97,9 @@ ALTER TABLE `likes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexen voor tabel `post`
+-- Indexen voor tabel `posts`
 --
-ALTER TABLE `post`
+ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -113,9 +113,9 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT voor een tabel `comment`
+-- AUTO_INCREMENT voor een tabel `comments`
 --
-ALTER TABLE `comment`
+ALTER TABLE `comments`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
@@ -125,9 +125,9 @@ ALTER TABLE `likes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT voor een tabel `post`
+-- AUTO_INCREMENT voor een tabel `posts`
 --
-ALTER TABLE `post`
+ALTER TABLE `posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
