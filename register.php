@@ -21,10 +21,13 @@
     <main>
         <form action="" method="post" class="register__form">
             <input type="text" placeholder="email" name="email">
+            <input type="text" placeholder="username" name="username">
             <input type="password" placeholder="password" name="password">
             <input type="password" placeholder="confirm password" name="password__confirm">
             <input type="submit" placeholder="register account" name="submit">
         </form>
+
+        <div class="error"></div>
     </main>
 
     //include van footer

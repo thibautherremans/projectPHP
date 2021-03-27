@@ -1,5 +1,21 @@
 <?php
+    include_once(__DIR__ . "/classes/User.php");
 
+    if(!empty($_POST)){
+        $user = new User();
+        $user->setEmail($_POST['email']);
+        $user->setPassword($_POST['password']);
+        try{
+            if($user->canLogin()){
+                echo('het is gelukt!');
+                //session_start();
+                //$_SESSION['email'] = $_POST['email'];
+            }
+        }catch(\Throwable $th){
+            $error = $th->getMessage();
+        }
+
+    }
 ?>
 
 <!doctype html>
@@ -27,6 +43,10 @@
         </form>
 
         <a href="register.php">make an account</a>
+
+        <?php if(isset($error)): ?>
+        <div class="error" style="color= #ff0000"><?php echo $error; ?></div>
+        <?php endif; ?>
     </main>
 
     //include van footer
