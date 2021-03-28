@@ -45,7 +45,7 @@
         <a href="register.php">make an account</a>
 
         <?php if(isset($error)): ?>
-        <div class="error" style="color= #ff0000"><?php echo $error; ?></div>
+        <div class="error" ><?php echo $error; ?></div>
         <?php endif; ?>
     </main>
 

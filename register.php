@@ -1,5 +1,23 @@
 <?php
+    include_once(__DIR__ . "/classes/User.php");
 
+    if(!empty($_POST)){
+        try{
+            $user = new User();
+            $user->setEmail($_POST["email"]);
+            $user->setPassword($_POST["password"]);
+            $user->setUsername($_POST["username"]);
+
+            $user->register();
+
+            /*session_start();
+            $_SESSION["username"] = $user->getUsername();
+            header("location: index.php");*/
+
+        }catch(\Throwable $th){
+            $error = $th->getMessage();
+        }
+    }
 ?>
 
 <!doctype html>
@@ -27,7 +45,9 @@
             <input type="submit" placeholder="register account" name="submit">
         </form>
 
-        <div class="error"></div>
+        <?php if(isset($error)): ?>
+        <div class="error"><?php echo $error; ?></div>
+        <?php endif; ?>
     </main>
 
     //include van footer

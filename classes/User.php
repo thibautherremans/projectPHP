@@ -5,6 +5,18 @@
         private $email;
         private $password;
         private $picture;
+        private $username;
+
+
+        public function getUsername()
+        {
+            return $this->username;
+        }
+
+        public function setUsername($username)
+        {
+            $this->username = $username;
+        }
 
 
         public function getPicture()
@@ -61,7 +73,6 @@
             $hash = $result['password'];
 
 
-
             if(password_verify($password, $hash)){
                 return true;
             }else{
@@ -69,6 +80,25 @@
                 throw new Exception("password is not correct!");
             }
         }
+
+        public function register(){
+            $options = [
+                "cost" => 14
+            ];
+            $password = password_hash($this->getPassword(), PASSWORD_DEFAULT, $options);
+
+            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $statement = $conn->prepare("insert into users (email, password, username) values (:email, :password, :username)");
+
+            $statement->bindValue(":email", $this->getEmail());
+            $statement->bindValue(":password", $password);
+            $statement->bindValue(":username", $this->getUsername());
+
+            echo "yeey het is gelukt";
+            return $statement->execute();
+        }
+
+
 
 
 }
