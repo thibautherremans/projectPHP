@@ -10,9 +10,9 @@
 
             $user->register();
 
-            /*session_start();
+            ession_start();
             $_SESSION["username"] = $user->getUsername();
-            header("location: index.php");*/
+            //header("location: index.php");
 
         }catch(\Throwable $th){
             $error = $th->getMessage();
@@ -32,7 +32,7 @@
     <title>register page</title>
 </head>
 <body class="text-center">
-    //include van navigatie
+    <?php include_once(__DIR__ . "/nav.inc.php"); ?>
 
     <header class="register__head m-auto">
         <img src="/images/logo-insta.png" alt="" class="mb-4" width="70" height="70">

@@ -7,9 +7,8 @@
         $user->setPassword($_POST['password']);
         try{
             if($user->canLogin()){
-                echo('het is gelukt!');
-                //session_start();
-                //$_SESSION['email'] = $_POST['email'];
+                session_start();
+                $_SESSION['email'] = $_POST['email'];
             }
         }catch(\Throwable $th){
             $error = $th->getMessage();
@@ -32,7 +31,7 @@
 </head>
 <body class="text-center">
 
-    //include van navigatie
+    <?php include_once(__DIR__ . "/nav.inc.php"); ?>
 
     <header class="login__head m-auto">
         <img src="/images/logo-insta.png" alt="" class="mb-4" width="70" height="70">
