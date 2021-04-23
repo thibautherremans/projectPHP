@@ -10,7 +10,7 @@
 
             $user->register();
 
-            ession_start();
+            session_start();
             $_SESSION["username"] = $user->getUsername();
             //header("location: index.php");
 
