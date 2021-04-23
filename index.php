@@ -1,5 +1,7 @@
 <?php
 
+$i = 0;
+
 $posts = [
     [
         "username" => "johnwick",
@@ -123,5 +125,16 @@ $posts = [
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+        
+    <?php foreach($posts as $post => $v): ?>
+    <?php if (++$i == 21) break; ?>
+    <article >
+        <a href="#<?php echo $post;?>" class="justify-content-center">
+            <h3><?php echo $v['username']; ?></h3>
+            <img src="<?php echo $v['image']; ?>" alt="img">
+            <h6><?php echo $v['description']; ?></h6>
+        </a>
+    </article>
+    <?php endforeach; ?>
 </body>
 </html>
