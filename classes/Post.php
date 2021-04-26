@@ -42,7 +42,7 @@
 
         }
 
-        function UploadImage($image){
+        public function UploadImage($image){
 
                 $conn  = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
                 $statement = $conn->prepare("insert into post where (mediafile) = (:image)");

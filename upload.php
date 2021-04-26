@@ -1,28 +1,32 @@
 <?php
+
     include_once(__DIR__ . "/classes/Post.php");
+
 
     if(!empty($_POST)){
         $post = new Post();
         //$post->UploadImage($_POST["UploadImage"]);
-        $post->setImage($_POST["uploadImage"]);
+        //$post->setImage($_FILES["uploadImage"]);
         $post->setDescription($_POST["description"]);
-        var_dump($_POST["UploadImage"]);
     }
 
 $statusMsg = '';
 
 // File upload path
-$targetDir = "uploads/";
-$fileName = basename($_FILES["file"]["UploadImage"]);
+$targetDir = (__DIR__ . "./uploads");
+$fileName = basename($_FILES["uploadImage"]['name']);
 $targetFilePath = $targetDir . $fileName;
 $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+var_dump($fileName);
+var_dump($fileType);
+var_dump($_FILES["uploadImage"]["tmp_name"]);
 
-if(isset($_POST["submit"]) && !empty($_FILES["file"]["UploadImage"])){
+if(isset($_POST["submit"]) && !empty($_FILES["uploadImage"])){
     // Allow certain file formats
     $allowTypes = array('jpg','png','jpeg','gif','pdf');
     if(in_array($fileType, $allowTypes)){
         // Upload file to server
-        if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
+        if(move_uploaded_file($_FILES["uploadImage"]["tmp_name"], $targetFilePath)){
             // Insert image file name into database
             $query = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
             $statement = $query->prepare("insert into posts (mediafile) values(:upload)");
