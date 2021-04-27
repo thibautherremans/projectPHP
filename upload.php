@@ -6,20 +6,18 @@
     if(!empty($_POST)){
         $post = new Post();
         //$post->UploadImage($_POST["UploadImage"]);
-        //$post->setImage($_FILES["uploadImage"]);
+        $post->setImage($_FILES["uploadImage"]);
         $post->setDescription($_POST["description"]);
     }
 
-$statusMsg = '';
+/*$statusMsg = '';
 
 // File upload path
-$targetDir = (__DIR__ . "./uploads");
+$targetDir = (__DIR__ . "./uploads/");
 $fileName = basename($_FILES["uploadImage"]['name']);
 $targetFilePath = $targetDir . $fileName;
 $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-var_dump($fileName);
-var_dump($fileType);
-var_dump($_FILES["uploadImage"]["tmp_name"]);
+
 
 if(isset($_POST["submit"]) && !empty($_FILES["uploadImage"])){
     // Allow certain file formats
@@ -49,7 +47,7 @@ if(isset($_POST["submit"]) && !empty($_FILES["uploadImage"])){
 }
 
 // Display status message
-echo $statusMsg;
+echo $statusMsg;*/
 ?><!doctype html>
 <html lang="en">
 <head>
