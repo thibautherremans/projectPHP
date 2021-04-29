@@ -4,6 +4,23 @@
     class Post{
         private $image;
         private $description;
+        private $tag;
+
+        /**
+         * @return mixed
+         */
+        public function getTag()
+        {
+            return $this->tag;
+        }
+
+        /**
+         * @param mixed $tag
+         */
+        public function setTag($tag): void
+        {
+            $this->tag = $tag;
+        }
 
         public function getDescription()
         {
@@ -27,6 +44,10 @@
 
         public function setImage($image)
         {
+            $this->image = $image;
+        }
+
+        public function uploadImage($image){
             $targetDir = (__DIR__ . "./../uploads/");
             $fileName = basename($image['name']);
             $targetFilePath = $targetDir . $fileName;
@@ -39,8 +60,8 @@
                     // Upload file to server
                     if(move_uploaded_file($image["tmp_name"], $targetFilePath)){
                         // Insert image file name into database
-                        $query = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
-                        $statement = $query->prepare('insert into (mediafile) values (:image)');
+                        $conn = Db::getInstance();
+                        $statement = $conn->prepare('insert into (mediafile) values (:image)');
                         $statement->bindValue(":image", $fileName);
 
                         $result = $statement->execute();
@@ -63,8 +84,15 @@
 
 // Display status message
             echo $statusMsg;
+        }
 
-
+        public function searchTag(){
+            $conn = Db::getInstance();
+            $statement = $conn->prepare("select * from posts where (tag) like (:tag)");
+            $statement->bindValue(":tag", $this->getTag());
+            $statement->execute();
+            $result = $statement->fetchAll();
+            return $result;
         }
 
 

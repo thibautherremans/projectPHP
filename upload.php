@@ -5,9 +5,9 @@
 
     if(!empty($_POST)){
         $post = new Post();
-        //$post->UploadImage($_POST["UploadImage"]);
-        $post->setImage($_FILES["uploadImage"]);
+        $post->uploadImage($_FILES["uploadImage"]);
         $post->setDescription($_POST["description"]);
+        $post->setTag($_POST["tag"]);
     }
 
 ?><!doctype html>
@@ -27,13 +27,11 @@
         //select a picture
         <input type="file" name="uploadImage" id="uploadImage">
         <input type="text" name="description" id="description">
+        <input type="text" name="tag" id="tag">
         <input type="submit" value="Upload Image" name="submit" id="submit">
-        //add a description to the picture
-
-        //tags like #breakfast must redirect to other pictures with this tag
-
-        //upload the picture to the feed/profile (reduce size and quality first)
     </form>
+
+
 
 </body>
 </html>

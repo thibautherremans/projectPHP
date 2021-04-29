@@ -60,7 +60,7 @@
 
         public function canLogin(){
 
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $conn = Db::getInstance();
             $statement = $conn->prepare("select * from users where (email) = (:email)");
 
             $email = $this->getEmail();
@@ -87,7 +87,7 @@
             ];
             $password = password_hash($this->getPassword(), PASSWORD_DEFAULT, $options);
 
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $conn = Db::getInstance();
             $statement = $conn->prepare("insert into users (email, password, username) values (:email, :password, :username)");
 
             $statement->bindValue(":email", $this->getEmail());
