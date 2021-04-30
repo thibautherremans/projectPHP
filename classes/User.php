@@ -30,7 +30,12 @@
 
         public function getUsername()
         {
-            return $this->username;
+            session_start();
+            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $statement = $conn->prepare("select username from users where (email) = (:email)");
+            $statement->bindValue(":email", $_SESSION["email"]);
+            $statement->execute();
+            return $statement->fetch();
         }
 
         public function setUsername($username)

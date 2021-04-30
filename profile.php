@@ -3,10 +3,12 @@
     include_once(__DIR__ . "./classes/User.php");
     include_once(__DIR__ . "./classes/Post.php");
     //$profilePicture = User::getPicture();
-    //$name = User::getUsername();
-    //$email = User::getEmail();
+    $name = User::getUsername();
+    $email = $_SESSION["email"];
     $userId = User::getId();
     $posts = Post::loadByUser($userId);
+
+    var_dump($name);
 
 ?>
 
@@ -24,6 +26,17 @@
 <body>
     <?php include_once("nav.inc.php");?>
 
+
+    <section class="info">
+        <h2><?php echo $name["username"]; ?></h2>
+        <h3><?php echo $email ?></h3>
+    </section>
+
+    <?php foreach($posts as $p): ?>
+    <section class="posts">
+        <img src="<?php echo $p["imagePath"]; ?>" alt="">
+    </section>
+    <?php endforeach; ?>
     //profile picture and name
 
     //profile description
