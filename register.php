@@ -10,8 +10,6 @@
 
             $user->register();
 
-            session_start();
-            $_SESSION["username"] = $user->getUsername();
             //header("location: index.php");
 
         }catch(\Throwable $th){

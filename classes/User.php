@@ -6,6 +6,26 @@
         private $password;
         private $picture;
         private $username;
+        private $id;
+
+
+        public function getId()
+        {
+            session_start();
+            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $statement = $conn->prepare("select id from users where (email) = (:email)");
+            $statement->bindValue(":email", $_SESSION["email"]);
+            $statement->execute();
+            return $statement->fetch();
+        }
+
+        /**
+         * @param mixed $id
+         */
+        public function setId($id)
+        {
+            $this->id = $id;
+        }
 
 
         public function getUsername()
@@ -60,7 +80,7 @@
 
         public function canLogin(){
 
-            $conn = Db::getInstance();
+            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
             $statement = $conn->prepare("select * from users where (email) = (:email)");
 
             $email = $this->getEmail();
@@ -87,7 +107,7 @@
             ];
             $password = password_hash($this->getPassword(), PASSWORD_DEFAULT, $options);
 
-            $conn = Db::getInstance();
+            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
             $statement = $conn->prepare("insert into users (email, password, username) values (:email, :password, :username)");
 
             $statement->bindValue(":email", $this->getEmail());

@@ -9,6 +9,8 @@
             if($user->canLogin()){
                 session_start();
                 $_SESSION['email'] = $_POST['email'];
+                var_dump($_SESSION["email"]);
+                //header("location:profile.php");
             }
         }catch(\Throwable $th){
             $error = $th->getMessage();

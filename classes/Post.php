@@ -61,9 +61,8 @@
                     if(move_uploaded_file($image["tmp_name"], $targetFilePath)){
                         // Insert image file name into database
                         $conn = Db::getInstance();
-                        $statement = $conn->prepare('insert into (mediafile) values (:image)');
+                        $statement = $conn->prepare('insert into (imagePath) values (:image)');
                         $statement->bindValue(":image", $fileName);
-
                         $result = $statement->execute();
                         var_dump($result);
                         //$insert = $db->query("INSERT into images (file_name, uploaded_on) VALUES ('".$fileName."', NOW())");
@@ -87,12 +86,20 @@
         }
 
         public function searchTag(){
-            $conn = Db::getInstance();
+            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
             $statement = $conn->prepare("select * from posts where (tag) like (:tag)");
             $statement->bindValue(":tag", $this->getTag());
             $statement->execute();
             $result = $statement->fetchAll();
             return $result;
+        }
+
+        public function loadByUser($userId){
+            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $statement = $conn->prepare("select * from posts where (user_id) = (:user_id)");
+            $statement->bindValue(":user_id", $userId);
+            $statement->execute();
+            return $statement->fetchAll();
         }
 
 

@@ -1,4 +1,14 @@
+<?php
+    session_start();
+    include_once(__DIR__ . "./classes/User.php");
+    include_once(__DIR__ . "./classes/Post.php");
+    //$profilePicture = User::getPicture();
+    //$name = User::getUsername();
+    //$email = User::getEmail();
+    $userId = User::getId();
+    $posts = Post::loadByUser($userId);
 
+?>
 
 <!doctype html>
 <html lang="en">
