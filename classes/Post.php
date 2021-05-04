@@ -94,10 +94,10 @@
             return $result;
         }
 
-        public function loadByUser($userId){
+        public function loadByUser(){
             $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
             $statement = $conn->prepare("select * from posts where (user_id) = (:user_id)");
-            $statement->bindValue(":user_id", $userId);
+            $statement->bindValue(":user_id", $_SESSION['id']);
             $statement->execute();
             return $statement->fetchAll();
         }

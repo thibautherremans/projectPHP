@@ -9,7 +9,7 @@
     $posts = Post::loadByUser($userId);
 
    try {
-           if(!empty($_POST['name']))
+       if(!empty($_POST['name']))
            {
                $user = new User();
                $user->changeName($_POST['name']);
@@ -18,19 +18,35 @@
        $error = $th->getMessage();
    }
 
-    if(!empty($_POST['email'])){
-        $user = new User();
-        $user->changeEmail($_POST['email']);
-    }
+    try {
+       if(!empty($_POST['email']))
+           {
+                $user = new User();
+                $user->changeEmail($_POST['email']);
+           }
+     }catch(\Throwable $th){
+           $error = $th->getMessage();
+       }
 
-    if(!empty($_POST['confirmPassword'])){
-        $user = new User();
-        $user->changePassword($_POST['newPassword'], $_POST['confirmPassword']);
-    }
+    try {
+        if(!empty($_POST['confirmPassword']))
+            {
+                $user = new User();
+                $user->changeDescription($_POST["description"]);
+            }
+        }catch(\Throwable $th){
+        $error = $th->getMessage();
+        }
 
-    if(!empty($_POST['confirmPassword'])){
-        $user = new User();
-        $user->changeDescription($_POST['description']);
+
+    try {
+        if(!empty($_POST['confirmPassword'] && $_POST["newPassword"]))
+            {
+                $user = new User();
+                $user->changePassword($_POST['newPassword'], $_POST['confirmPassword']);
+            }
+    }catch(\Throwable $th){
+        $error = $th->getMessage();
     }
 ?>
 <!doctype html>
@@ -41,7 +57,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <title>Document</title>
+    <title>edit profile</title>
 </head>
 <body>
 <?php include_once("nav.inc.php"); ?>
@@ -51,32 +67,23 @@
 
     <section class="info">
         <h2><?php echo $name["username"]; ?></h2>
-        <h3>change username</h3>
+        <h3><?php echo $email ?></h3>
+
+        <p>change username</p>
         <form action="" method="post">
             <input type="text" name="name">
-            <input type="submit" value="change name">
-        </form>
-        <h3><?php echo $email ?></h3>
-        <h3>change email</h3>
-        <form action="" method="post">
+            <p>change email</p>
             <input type="email" name="email">
-            <input type="submit" value="change email">
-        </form>
-
-        <h3>add description</h3>
-        <form action="" method="post">
+            <p>add description</p>
             <input type="text" name="description">
-            <input type="submit" value="add description">
-        </form>
-
-        <h3>change password</h3>
-        <form action="" method="post">
+            <p>change password</p>
             <p>new password</p>
             <input type="password" name="newPassword">
             <p>confirm password</p>
             <input type="password" name="confirmPassword">
-            <input type="submit" value="change password">
+            <input type="submit" value="change info">
         </form>
+
     </section>
 </body>
 </html>

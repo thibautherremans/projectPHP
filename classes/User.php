@@ -16,7 +16,8 @@
             $statement = $conn->prepare("select id from users where (email) = (:email)");
             $statement->bindValue(":email", $_SESSION["email"]);
             $statement->execute();
-            return $statement->fetch();
+            $result = $statement->fetch();
+            return $result['id'];
         }
 
         /**
@@ -128,11 +129,11 @@
                 $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
                 $statement = $conn->prepare("UPDATE users SET username = (:name) WHERE users.id = (:id);");
                 $statement->bindValue(":name", $name);
-                $statement->bindValue(":id", $this->getId());
+                $statement->bindValue(":id", $_SESSION['id']);
                 $result = $statement->execute();
-                var_dump($name);
-                var_dump($this->getUsername());
-                var_dump($result);
+
+                session_start();
+                $_SESSION['username'] = $name;
                 return $result;
 
             }else{
@@ -147,7 +148,10 @@
                 $statement = $conn->prepare("UPDATE users SET email = (:email) WHERE users.id = (:id);");
 
                 $statement->bindValue(":email", $email);
-                $statement->bindValue(":id", $this->getId());
+                $statement->bindValue(":id", $_SESSION['id']);
+
+                session_start();
+                $_SESSION['email'] = $email;
 
                 return $statement->execute();
             }else{
@@ -160,23 +164,23 @@
                 $statement = $conn->prepare("UPDATE users SET description = (:description) WHERE users.id = (:id);");
 
                 $statement->bindValue(":description", $description);
-                $statement->bindValue(":id", $this->getId());
+                $statement->bindValue(":id", $_SESSION['id']);
 
                 return $statement->execute();
         }
 
-        public function changePassword($pass, $confPass){
-            if($pass === $confPass){
+        public function changePassword($newPass, $confPass){
+            if($newPass === $confPass){
                 $options = [
                     "cost" => 14
                 ];
-                $password = password_hash($pass, PASSWORD_DEFAULT, $options);
+                $password = password_hash($confPass, PASSWORD_DEFAULT, $options);
 
                 $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
                 $statement = $conn->prepare("UPDATE users SET password = (:password) WHERE users.id = (:id);");
-
                 $statement->bindValue(":password", $password);
-                $statement->bindValue(":id", $this->getId());
+                $statement->bindValue(":id", $_SESSION['id']);
+                return $statement->execute();
             }else{
                 throw new Exception ("password must be the same!");
             }

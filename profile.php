@@ -6,8 +6,7 @@
     $name = User::getUsername();
     $email = $_SESSION["email"];
     $userId = User::getId();;
-    $posts = Post::loadByUser($userId);
-
+    $posts = Post::loadByUser();
     $i = 0;
 
 ?>
