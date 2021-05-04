@@ -123,6 +123,65 @@
             return $statement->execute();
         }
 
+        public function changeName($name){
+            if($name != $this->getUsername()){
+                $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+                $statement = $conn->prepare("UPDATE users SET username = (:name) WHERE users.id = (:id);");
+                $statement->bindValue(":name", $name);
+                $statement->bindValue(":id", $this->getId());
+                $result = $statement->execute();
+                var_dump($name);
+                var_dump($this->getUsername());
+                var_dump($result);
+                return $result;
+
+            }else{
+                throw new Exception("Username can't be the same as before!");
+            }
+
+        }
+
+        public function changeEmail($email){
+            if($email != $this->getEmail()){
+                $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+                $statement = $conn->prepare("UPDATE users SET email = (:email) WHERE users.id = (:id);");
+
+                $statement->bindValue(":email", $email);
+                $statement->bindValue(":id", $this->getId());
+
+                return $statement->execute();
+            }else{
+                throw new Exception("Email can't be the same as before!");
+            }
+        }
+
+        public function changeDescription($description){
+                $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+                $statement = $conn->prepare("UPDATE users SET description = (:description) WHERE users.id = (:id);");
+
+                $statement->bindValue(":description", $description);
+                $statement->bindValue(":id", $this->getId());
+
+                return $statement->execute();
+        }
+
+        public function changePassword($pass, $confPass){
+            if($pass === $confPass){
+                $options = [
+                    "cost" => 14
+                ];
+                $password = password_hash($pass, PASSWORD_DEFAULT, $options);
+
+                $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+                $statement = $conn->prepare("UPDATE users SET password = (:password) WHERE users.id = (:id);");
+
+                $statement->bindValue(":password", $password);
+                $statement->bindValue(":id", $this->getId());
+            }else{
+                throw new Exception ("password must be the same!");
+            }
+        }
+
 
 
 

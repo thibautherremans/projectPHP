@@ -5,10 +5,10 @@
     //$profilePicture = User::getPicture();
     $name = User::getUsername();
     $email = $_SESSION["email"];
-    $userId = User::getId();
+    $userId = User::getId();;
     $posts = Post::loadByUser($userId);
 
-    var_dump($name);
+    $i = 0;
 
 ?>
 
@@ -26,17 +26,25 @@
 <body>
     <?php include_once("nav.inc.php");?>
 
-
     <section class="info">
         <h2><?php echo $name["username"]; ?></h2>
         <h3><?php echo $email ?></h3>
     </section>
 
+    <?php if($_SESSION['id'] == $userId): ?>
+        <a href="editProfile.php">edit profile</a>
+    <?php endif; ?>
+
     <?php foreach($posts as $p): ?>
+        <?php if (++$i == 21) break; ?>
     <section class="posts">
-        <img src="<?php echo $p["imagePath"]; ?>" alt="">
+        <img src="<?php echo $p["imagePath"]; ?>" alt="post">
     </section>
     <?php endforeach; ?>
+
+    <a href="#">load more</a>
+
+
     //profile picture and name
 
     //profile description

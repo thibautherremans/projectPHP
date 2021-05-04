@@ -9,7 +9,9 @@
             if($user->canLogin()){
                 session_start();
                 $_SESSION['email'] = $_POST['email'];
+                $_SESSION['id'] = $user->getId();
                 var_dump($_SESSION["email"]);
+                var_dump($_SESSION['id']);
                 //header("location:profile.php");
             }
         }catch(\Throwable $th){
