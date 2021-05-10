@@ -15,8 +15,14 @@
     $info = $u->loadInfo($id);
     $name = $info["username"];
     $email = $info["email"];
+    $description = $info["description"];
     $posts = $post->loadByUser($id);
     $comments = $comment->loadComments(7);
+
+    $profilepicture = $info["profile_picture"];
+    if($profilepicture === null){
+        $img = "images/basic-profile.png";
+    }
 ?>
 
 <!doctype html>
@@ -34,8 +40,10 @@
     <?php include_once("nav.inc.php");?>
 
     <section class="info">
+        <img src="<?php echo $img ?>" alt="profile picture">
         <h2><?php echo $name; ?></h2>
         <h3><?php echo $email; ?></h3>
+        <p><?php echo $description; ?></p>
     </section>
 
     <?php if($_SESSION['id'] == $id): ?>
@@ -45,7 +53,7 @@
     <?php foreach($posts as $p): ?>
         <?php if (++$i == 21) break; ?>
     <section class="posts">
-        <img src="<?php echo $p["imagePath"];?>" alt="post">
+        <img src="uploads/<?php echo $p["imagePath"];?>" alt="<?php echo $p["imagePath"]; ?>">
         <p><?php echo $p["description"];?></p>
         <a href="#">like</a>
 

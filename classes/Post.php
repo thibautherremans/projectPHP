@@ -66,7 +66,7 @@
                         $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
                         $statement = $conn->prepare("insert into posts (imagePath, uploadDate, user_id, description) values (:image, now(), :id, :description)");
 
-                        $statement->bindValue(":image", $fileName . $id);
+                        $statement->bindValue(":image", $fileName . "_" . $id);
                         $statement->bindValue(":id", $id);
                         $statement->bindValue(":description", $description);
                         $result = $statement->execute();

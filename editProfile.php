@@ -48,6 +48,13 @@
     }catch(\Throwable $th){
         $error = $th->getMessage();
     }
+
+    if(!empty($_FILES['profilePicture']))
+    {
+        $user = new User();
+        $user->uploadProfilepicture($_FILES['profilePicture']);
+    }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -69,8 +76,13 @@
         <h2><?php echo $name["username"]; ?></h2>
         <h3><?php echo $email ?></h3>
 
-        <p>change username</p>
+        <form action="" method="post" enctype="multipart/form-data">
+            <input type="file" name="profilePicture">
+            <input type="submit" name="submit">
+        </form>
+
         <form action="" method="post">
+            <p>change username</p>
             <input type="text" name="name">
             <p>change email</p>
             <input type="email" name="email">
