@@ -6,108 +6,127 @@ $posts = [
     [
         "username" => "johnwick",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Yeah man!"
+        "description" => "Yeah man!",
+        "id" => 0
     ],
     [
         "username" => "youngthugg",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ski!"
+        "description" => "Ski!",
+        "id" => 1
     ],
     [
         "username" => "stevejobs",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ciao!"
+        "description" => "Ciao!",
+        "id" => 2
     ],
     [
         "username" => "johnwick",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Yeah man!"
+        "description" => "Yeah man!",
+        "id" => 3
     ],
     [
         "username" => "youngthugg",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ski!"
+        "description" => "Ski!",
+        "id" => 4
     ],
     [
         "username" => "stevejobs",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ciao!"
+        "description" => "Ciao!",
+        "id" => 5
     ],[
         "username" => "johnwick",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Yeah man!"
+        "description" => "Yeah man!",
+        "id" =>6
     ],
     [
         "username" => "youngthugg",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ski!"
+        "description" => "Ski!",
+        "id" => 7
     ],
     [
         "username" => "stevejobs",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ciao!"
+        "description" => "Ciao!",
+        "id" => 8
     ],[
         "username" => "johnwick",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Yeah man!"
+        "description" => "Yeah man!",
+        "id" => 9
     ],
     [
         "username" => "youngthugg",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ski!"
+        "description" => "Ski!",
+        "id" => 10
     ],
     [
         "username" => "stevejobs",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ciao!"
+        "description" => "Ciao!",
+        "id" =>12
     ],[
         "username" => "johnwick",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Yeah man!"
+        "description" => "Yeah man!",
+        "id" =>13
     ],
     [
         "username" => "youngthugg",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ski!"
+        "description" => "Ski!",
+        "id" =>14
     ],
     [
         "username" => "stevejobs",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ciao!"
+        "description" => "Ciao!",
+        "id" => 15
     ],
     [
         "username" => "johnwick",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Yeah man!"
+        "description" => "Yeah man!",
+        "id" => 16
     ],
     [
         "username" => "youngthugg",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ski!"
+        "description" => "Ski!",
+        "id" => 17
     ],
     [
         "username" => "stevejobs",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ciao!"
+        "description" => "Ciao!",
+        "id" => 18
     ],
     [
         "username" => "johnwick",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Yeah man!"
+        "description" => "Yeah man!",
+        "id" =>19
     ],
     [
         "username" => "youngthugg",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ski!"
+        "description" => "Ski!",
+        "id" => 20
     ],
     [
         "username" => "stevejobs",
         "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ciao!"
+        "description" => "Ciao!",
+        "id" =>21
     ]
 ]
-
-
 
 ?>
 <!DOCTYPE html>
@@ -129,7 +148,7 @@ $posts = [
     <?php foreach($posts as $post => $v): ?>
     <?php if (++$i == 21) break; ?>
     <article >
-        <a href="#<?php echo $post;?>" class="justify-content-center">
+        <a href="profile.php?id=<?php echo $v['id'];?>" class="justify-content-center">
             <h3>a<?php echo $v['username']; ?></h3>
             <img src="<?php echo $v['image']; ?>" alt="img">
             <h6><?php echo $v['description']; ?></h6>

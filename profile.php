@@ -2,13 +2,21 @@
     session_start();
     include_once(__DIR__ . "./classes/User.php");
     include_once(__DIR__ . "./classes/Post.php");
+    include_once(__DIR__ . "./classes/Comment.php");
     //$profilePicture = User::getPicture();
-    $name = User::getUsername();
-    $email = $_SESSION["email"];
-    $userId = User::getId();;
-    $posts = Post::loadByUser();
+
     $i = 0;
 
+    $u = new User();
+    $post = new Post();
+    $comment = new Comment();
+
+    $id = $_GET['id'];
+    $info = $u->loadInfo($id);
+    $name = $info["username"];
+    $email = $info["email"];
+    $posts = $post->loadByUser($id);
+    $comments = $comment->loadComments(7);
 ?>
 
 <!doctype html>
@@ -26,36 +34,38 @@
     <?php include_once("nav.inc.php");?>
 
     <section class="info">
-        <h2><?php echo $name["username"]; ?></h2>
-        <h3><?php echo $email ?></h3>
+        <h2><?php echo $name; ?></h2>
+        <h3><?php echo $email; ?></h3>
     </section>
 
-    <?php if($_SESSION['id'] == $userId): ?>
+    <?php if($_SESSION['id'] == $id): ?>
         <a href="editProfile.php">edit profile</a>
     <?php endif; ?>
 
     <?php foreach($posts as $p): ?>
         <?php if (++$i == 21) break; ?>
     <section class="posts">
-        <img src="<?php echo $p["imagePath"]; ?>" alt="post">
+        <img src="<?php echo $p["imagePath"];?>" alt="post">
+        <p><?php echo $p["description"];?></p>
+        <a href="#">like</a>
+
+        <form action="" method="post">
+            <input class="commentText" type="text" name="comment" placeholder="place comment">
+            <a href="#" class="btnAddComment" data-postid= "<?php echo $p['id'];?>">add comment</a>
+        </form>
+
+        <?php foreach($comments as $c): ?>
+        <ul class="comment__list">
+            <li><?php echo $c["message"]; ?> <?php echo $c["post_date"]?></li>
+        </ul>
+        <?php endforeach; ?>
     </section>
     <?php endforeach; ?>
 
     <a href="#">load more</a>
 
-
-    //profile picture and name
-
-    //profile description
-
-    //change password
-
-    //change email
-
-    //list of all posts of this user
-
     //include van footer with "add picture" function
 
-
+    <script src="app.js"></script>
 </body>
 </html>

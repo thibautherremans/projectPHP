@@ -1,5 +1,6 @@
 <?php
     include_once(__DIR__ . "../database/Db.php");
+    include_once(__DIR__ . "User.php");
 
     class Post{
         private $image;
@@ -47,11 +48,13 @@
             $this->image = $image;
         }
 
-        public function uploadImage($image){
+        public function uploadImage($image, $description){
+            session_start();
             $targetDir = (__DIR__ . "./../uploads/");
             $fileName = basename($image['name']);
             $targetFilePath = $targetDir . $fileName;
             $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+            $id = $_SESSION['id'];
 
             if(isset($_POST["submit"]) && !empty($image)){
                 // Allow certain file formats
@@ -60,9 +63,12 @@
                     // Upload file to server
                     if(move_uploaded_file($image["tmp_name"], $targetFilePath)){
                         // Insert image file name into database
-                        $conn = Db::getInstance();
-                        $statement = $conn->prepare('insert into (imagePath) values (:image)');
-                        $statement->bindValue(":image", $fileName);
+                        $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+                        $statement = $conn->prepare("insert into posts (imagePath, uploadDate, user_id, description) values (:image, now(), :id, :description)");
+
+                        $statement->bindValue(":image", $fileName . $id);
+                        $statement->bindValue(":id", $id);
+                        $statement->bindValue(":description", $description);
                         $result = $statement->execute();
                         var_dump($result);
                         //$insert = $db->query("INSERT into images (file_name, uploaded_on) VALUES ('".$fileName."', NOW())");
@@ -94,10 +100,10 @@
             return $result;
         }
 
-        public function loadByUser(){
+        public function loadByUser($id){
             $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
             $statement = $conn->prepare("select * from posts where (user_id) = (:user_id)");
-            $statement->bindValue(":user_id", $_SESSION['id']);
+            $statement->bindValue(":user_id", $id);
             $statement->execute();
             return $statement->fetchAll();
         }

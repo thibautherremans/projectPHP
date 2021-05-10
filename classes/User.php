@@ -17,6 +17,7 @@
             $statement->bindValue(":email", $_SESSION["email"]);
             $statement->execute();
             $result = $statement->fetch();
+            var_dump($result);
             return $result['id'];
         }
 
@@ -36,7 +37,8 @@
             $statement = $conn->prepare("select username from users where (email) = (:email)");
             $statement->bindValue(":email", $_SESSION["email"]);
             $statement->execute();
-            return $statement->fetch();
+            $result = $statement->fetch();
+            return $result["username"];
         }
 
         public function setUsername($username)
@@ -186,6 +188,14 @@
             }
         }
 
+        public function loadInfo($id){
+            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $statement = $conn->prepare("select * from users where id = :id");
+            $statement->bindValue(":id", $id);
+            $statement->execute();
+            $result = $statement->fetch();
+            return $result;
+        }
 
 
 
