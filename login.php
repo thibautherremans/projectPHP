@@ -12,7 +12,7 @@
                 $_SESSION['id'] = $user->getId();
                 var_dump($_SESSION["email"]);
                 var_dump($_SESSION['id']);
-                //header("location:profile.php");
+                header("location:index.php");
             }
         }catch(\Throwable $th){
             $error = $th->getMessage();

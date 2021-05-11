@@ -10,7 +10,7 @@
 
             $user->register();
 
-            //header("location: index.php");
+            header("location: index.php");
 
         }catch(\Throwable $th){
             $error = $th->getMessage();

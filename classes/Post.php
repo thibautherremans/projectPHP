@@ -50,11 +50,11 @@
 
         public function uploadImage($image, $description){
             session_start();
+            $id = $_SESSION['id'];
             $targetDir = (__DIR__ . "./../uploads/");
-            $fileName = basename($image['name']);
+            $fileName = basename($image['name'] . "_" . $id);
             $targetFilePath = $targetDir . $fileName;
             $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-            $id = $_SESSION['id'];
 
             if(isset($_POST["submit"]) && !empty($image)){
                 // Allow certain file formats
@@ -66,12 +66,11 @@
                         $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
                         $statement = $conn->prepare("insert into posts (imagePath, uploadDate, user_id, description) values (:image, now(), :id, :description)");
 
-                        $statement->bindValue(":image", $fileName . "_" . $id);
+                        $statement->bindValue(":image", $fileName);
                         $statement->bindValue(":id", $id);
                         $statement->bindValue(":description", $description);
                         $result = $statement->execute();
                         var_dump($result);
-                        //$insert = $db->query("INSERT into images (file_name, uploaded_on) VALUES ('".$fileName."', NOW())");
                         if($result){
                             $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
                         }else{
