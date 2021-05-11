@@ -52,7 +52,7 @@
             session_start();
             $id = $_SESSION['id'];
             $targetDir = (__DIR__ . "./../uploads/");
-            $fileName = basename($image['name'] . "_" . $id);
+            $fileName = $id . "_" . basename($image['name']);
             $targetFilePath = $targetDir . $fileName;
             $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
 

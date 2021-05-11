@@ -2,7 +2,6 @@
 
     include_once(__DIR__ . "/classes/Post.php");
 
-
     try{
         if(!empty($_POST))
         {
@@ -34,8 +33,8 @@
     <form action="" method="post" enctype="multipart/form-data">
         //select a picture
         <input type="file" name="uploadImage" id="uploadImage">
-        <input type="text" name="description" id="description">
-        <input type="text" name="tag" id="tag">
+        <input type="text" name="description" id="description" placeholder="description">
+        <input type="text" name="tag" id="tag" placeholder="tag">
         <input type="submit" value="Upload Image" name="submit" id="submit">
     </form>
 

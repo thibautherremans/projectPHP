@@ -197,13 +197,13 @@
         }
 
         public function uploadProfilepicture($image){
-            echo "we zitten in de functie";
+
+            $id = $_SESSION['id'];
             session_start();
             $targetDir = (__DIR__ . "./../uploads/profilepictures/");
-            $fileName = basename($image['name']);
+            $fileName = $id . "_" . basename($image['name']) ;
             $targetFilePath = $targetDir . $fileName;
             $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-            $id = $_SESSION['id'];
             var_dump($fileName);
 
             if(isset($_POST["submit"]) && !empty($image)){
@@ -216,7 +216,7 @@
                         $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
                         $statement = $conn->prepare("UPDATE users SET profile_picture = (:image) WHERE users.id = (:id)");
 
-                        $statement->bindValue(":image", $fileName . "_" . $id);
+                        $statement->bindValue(":image",$fileName);
                         $statement->bindValue(":id", $id);
                         $result = $statement->execute();
                         var_dump($result);

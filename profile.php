@@ -9,7 +9,6 @@
 
     $u = new User();
     $post = new Post();
-    $comment = new Comment();
 
     $id = $_GET['id'];
     $info = $u->loadInfo($id);
@@ -17,12 +16,12 @@
     $email = $info["email"];
     $description = $info["description"];
     $posts = $post->loadByUser($id);
-    $comments = $comment->loadComments(7);
 
-    $profilepicture = $info["profile_picture"];
+    $profilepicture = "uploads/profilepictures/" . $info["profile_picture"];
     if($profilepicture === null){
-        $img = "images/basic-profile.png";
+        $profilepicture = "images/basic-profile.png";
     }
+    var_dump($_POST);
 ?>
 
 <!doctype html>
@@ -40,7 +39,7 @@
     <?php include_once("nav.inc.php");?>
 
     <section class="info">
-        <img src="<?php echo $img ?>" alt="profile picture">
+        <img src="<?php echo $profilepicture; ?>" alt="profile picture">
         <h2><?php echo $name; ?></h2>
         <h3><?php echo $email; ?></h3>
         <p><?php echo $description; ?></p>
@@ -52,28 +51,37 @@
 
     <?php foreach($posts as $p): ?>
         <?php if (++$i == 21) break; ?>
-    <section class="posts">
-        <img src="uploads/<?php echo $p["imagePath"];?>" alt="<?php echo $p["imagePath"]; ?>">
-        <p><?php echo $p["description"];?></p>
-        <a href="#">like</a>
+        <section class="post_<?php echo $p["id"]?>">
 
-        <form action="" method="post">
-            <input class="commentText" type="text" name="comment" placeholder="place comment">
-            <a href="#" class="btnAddComment" data-postid= "<?php echo $p['id'];?>">add comment</a>
-        </form>
+            <img src="uploads/<?php echo $p["imagePath"];?>" alt="<?php echo $p["imagePath"]; ?>">
+            <p><?php echo $p["description"];?></p>
 
-        <?php foreach($comments as $c): ?>
-        <ul class="comment__list">
-            <li><?php echo $c["message"]; ?> <?php echo $c["post_date"]?></li>
-        </ul>
-        <?php endforeach; ?>
-    </section>
+            <form action="" method="post">
+                <input type="submit" value="like" name="like" id="btnLike" class="btnLike_<?php echo $p['id']; ?>">
+                <span class="likeAmount">5</span>
+            </form>
+
+            <form action="" method="post">
+                <input class="commentText_<?php echo $p['id']; ?>" type="text" name="comment" placeholder="place comment">
+                <a href="#" class="btnAddComment" data-postid= "<?php echo $p['id'];?>">add comment</a>
+            </form>
+
+            <?php
+                $comment = new Comment;
+                $comments =  $comment->loadComments($p['id']);
+                foreach($comments as $c): ?>
+            <ul class="commentList_<?php echo $p['id']; ?>">
+                <li><?php echo $c["message"]; ?> <?php echo $c["post_date"]?></li>
+            </ul>
+            <?php endforeach; ?>
+        </section>
     <?php endforeach; ?>
 
     <a href="#">load more</a>
 
     //include van footer with "add picture" function
 
-    <script src="app.js"></script>
+    <script src="comment.js"></script>
+    <script src="like.js"></script>
 </body>
 </html>

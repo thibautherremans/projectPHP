@@ -4,13 +4,9 @@ let btns = document.querySelectorAll(".btnAddComment");
         btns[i].addEventListener("click", function () {
 
             let postId = this.dataset.postid;
-            let text = document.querySelector(".commentText").value;
-
-            console.log(postId);
-            console.log(text);
+            let text = document.querySelector(".commentText_" + postId).value;
 
             const formData = new FormData();
-
             formData.append('text', text);
             formData.append('postId', postId);
 
@@ -22,14 +18,12 @@ let btns = document.querySelectorAll(".btnAddComment");
                 .then(result => {
                     let newComment = document.createElement('li');
                     newComment.innerHTML = result.body;
-                    let commentlist = document.querySelectorAll(".comment__list");
-                        for(let i = 0; i<commentlist.length; i++){
-                            commentlist[i].appendChild(newComment);
-                            console.log(commentlist[i]);
-                        }
+                    let commentlist = document.querySelector(".commentList_" + postId);
+                            commentlist.appendChild(newComment);
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 });
         });
     }
+
