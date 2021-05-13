@@ -3,6 +3,7 @@
     include_once(__DIR__ . "./classes/User.php");
     include_once(__DIR__ . "./classes/Post.php");
     include_once(__DIR__ . "./classes/Comment.php");
+    include_once(__DIR__ . "./classes/Like.php");
     //$profilePicture = User::getPicture();
 
     $i = 0;
@@ -21,7 +22,6 @@
     if($profilepicture === null){
         $profilepicture = "images/basic-profile.png";
     }
-    var_dump($_POST);
 ?>
 
 <!doctype html>
@@ -40,9 +40,13 @@
 
     <section class="info">
         <img src="<?php echo $profilepicture; ?>" alt="profile picture">
-        <h2><?php echo $name; ?></h2>
-        <h3><?php echo $email; ?></h3>
-        <p><?php echo $description; ?></p>
+        <h2><?php echo htmlspecialchars($name); ?></h2>
+        <h3><?php echo htmlspecialchars($email); ?></h3>
+        <p><?php echo htmlspecialchars($description); ?></p>
+    </section>
+
+    <section class="follow">
+        <input type="submit" value="follow this user" class="btnFollow" data-userid="<?php echo $id ?>">
     </section>
 
     <?php if($_SESSION['id'] == $id): ?>
@@ -56,9 +60,14 @@
             <img src="uploads/<?php echo $p["imagePath"];?>" alt="<?php echo $p["imagePath"]; ?>">
             <p><?php echo $p["description"];?></p>
 
+            <?php
+                $l = new Like();
+                $likes = $l->loadLikes($p["id"]);
+                $likesAmount = count($likes);
+            ?>
             <form action="" method="post">
-                <input type="submit" value="like" name="like" id="btnLike" class="btnLike_<?php echo $p['id']; ?>">
-                <span class="likeAmount">5</span>
+                <input type="submit" value="like" name="like" data-postid = "<?php echo $p['id']; ?>" id="btnLike" class="btnLike_<?php echo $p['id']; ?>">
+                <span class="likeAmount"><?php echo $likesAmount ?></span>
             </form>
 
             <form action="" method="post">
@@ -71,7 +80,7 @@
                 $comments =  $comment->loadComments($p['id']);
                 foreach($comments as $c): ?>
             <ul class="commentList_<?php echo $p['id']; ?>">
-                <li><?php echo $c["message"]; ?> <?php echo $c["post_date"]?></li>
+                <li><?php echo htmlspecialchars($c["message"]) ; ?> <?php echo $c["post_date"]?></li>
             </ul>
             <?php endforeach; ?>
         </section>
@@ -83,5 +92,6 @@
 
     <script src="comment.js"></script>
     <script src="like.js"></script>
+    <script src="follow.js"></script>
 </body>
 </html>

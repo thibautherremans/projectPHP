@@ -2,14 +2,14 @@
     include_once(__DIR__ . "./../classes/Like.php");
     if(!empty($_POST)){
         session_start();
-        $l = new Like();
-        $l->setUserId($_SESSION['id']);
-        $l->setPostId($_POST['postId']);
-        $l->like();
+        $like = new Like();
+        $like->setPostId($_POST['postId']);
+        $like->setUserId($_SESSION['id']);
+        $like->like();
 
         $response = [
             'status' => "succes",
-            'message' => "Post Liked"
+            'message' => "Like Saved"
         ];
 
         header("Content-Type: application/json");

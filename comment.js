@@ -10,7 +10,7 @@ let btns = document.querySelectorAll(".btnAddComment");
             formData.append('text', text);
             formData.append('postId', postId);
 
-            fetch('ajax/savecomment.php', {
+            fetch('ajax/savecomment.php',{
                 method: 'POST',
                 body: formData
             })
