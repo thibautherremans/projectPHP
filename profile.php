@@ -4,7 +4,6 @@
     include_once(__DIR__ . "./classes/Post.php");
     include_once(__DIR__ . "./classes/Comment.php");
     include_once(__DIR__ . "./classes/Like.php");
-    //$profilePicture = User::getPicture();
 
     $i = 0;
 

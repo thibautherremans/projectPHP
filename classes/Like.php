@@ -46,7 +46,7 @@
 
         public function unLike(){
             $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
-            $statement = $conn->prepare("delete from likes where (post_id, user_id) values (:postId, :id)");
+            $statement = $conn->prepare("delete from likes where (post_id, user_id) = (:postId, :id)");
             $statement->bindValue(":post_id", $this->getPostId());
             $statement->bindValue(":id", $this->getUserId());
             $result = $statement->execute();
