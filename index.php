@@ -155,5 +155,7 @@ $posts = [
         </a>
     </article>
     <?php endforeach; ?>
+
+    <input type="text">
 </body>
 </html>
