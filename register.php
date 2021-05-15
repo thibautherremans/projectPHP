@@ -9,12 +9,15 @@
             $user->setUsername($_POST["username"]);
 
             $user->register();
-
-            header("location: index.php");
+            $_SESSION['email'] = $_POST['email'];
+            $_SESSION['id'] = $user->getId();
+            //header("location: index.php");
 
         }catch(\Throwable $th){
             $error = $th->getMessage();
         }
+
+        var_dump($_SESSION);
     }
 ?>
 

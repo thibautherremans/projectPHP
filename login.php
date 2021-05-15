@@ -10,9 +10,8 @@
                 session_start();
                 $_SESSION['email'] = $_POST['email'];
                 $_SESSION['id'] = $user->getId();
-                var_dump($_SESSION["email"]);
-                var_dump($_SESSION['id']);
-                header("location:index.php");
+                var_dump($_SESSION['email']);
+                //header("location:index.php");
             }
         }catch(\Throwable $th){
             $error = $th->getMessage();

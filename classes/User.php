@@ -29,7 +29,7 @@
         }
 
 
-        public function getUsername()
+        public function getUsernameFromDb()
         {
             session_start();
             $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
@@ -38,6 +38,10 @@
             $statement->execute();
             $result = $statement->fetch();
             return $result["username"];
+        }
+
+        public function getUsername(){
+            return $this->username;
         }
 
         public function setUsername($username)
@@ -120,13 +124,13 @@
             $statement->bindValue(":email", $this->getEmail());
             $statement->bindValue(":password", $password);
             $statement->bindValue(":username", $this->getUsername());
-
-            echo "yeey het is gelukt";
-            return $statement->execute();
+            $result = $statement->execute();
+            var_dump($this->getEmail(), $password, $this->getUsername());
+            return $result;
         }
 
         public function changeName($name){
-            if($name != $this->getUsername()){
+            if($name != $this->getUsernameFromDb()){
                 $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
                 $statement = $conn->prepare("UPDATE users SET username = (:name) WHERE users.id = (:id);");
                 $statement->bindValue(":name", $name);

@@ -1,6 +1,5 @@
 <?php
     session_start();
-
     ?><nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">technogram</a>
@@ -20,6 +19,13 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="profile.php?id=<?php echo $_SESSION['id']; ?>">profile</a>
                 </li>
+                <?php
+                    if($_SESSION['email'] === "admin@admin.com"):
+                ?>
+                <li class="nav-item">
+                    <a href="#" class="nav-link-active" aria-current="page">inappropriate list</a>
+                </li>
+                <?php endif; ?>
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php">Logout</a>
                 </li>

@@ -21,8 +21,6 @@
     if($profilepicture === null){
         $profilepicture = "images/basic-profile.png";
     }
-
-    var_dump($_POST['delete']);
 ?>
 
 <!doctype html>

@@ -3,7 +3,7 @@
     include_once(__DIR__ . "./classes/User.php");
     include_once(__DIR__ . "./classes/Post.php");
     //$profilePicture = User::getPicture();
-    $name = User::getUsername();
+    $name = User::getUsernameFromDb();
     $email = $_SESSION["email"];
     $userId = User::getId();;
     $posts = Post::loadByUser($userId);
