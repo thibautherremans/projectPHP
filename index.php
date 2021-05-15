@@ -156,6 +156,10 @@ $posts = [
     </article>
     <?php endforeach; ?>
 
-    <input type="text">
+    <form action="" method="post">
+        <input type="submit" value="load more" name="loadMore" class="loadMore">
+    </form>
+
+    <script src="loadMore.js"></script>
 </body>
 </html>

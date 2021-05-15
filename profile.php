@@ -21,6 +21,8 @@
     if($profilepicture === null){
         $profilepicture = "images/basic-profile.png";
     }
+
+    var_dump($_POST['delete']);
 ?>
 
 <!doctype html>
@@ -82,6 +84,18 @@
                 <li><?php echo htmlspecialchars($c["message"]) ; ?> <?php echo $c["post_date"]?></li>
             </ul>
             <?php endforeach; ?>
+
+            <?php
+                if(!empty($_POST["delete"]))
+                {
+                    $post->delete($p['id']);
+                }
+
+                if($_SESSION['id'] == $id): ?>
+                    <form action="" method="post">
+                        <input type="submit" value="delete this post" name="delete" id="delete">
+                    </form>
+            <?php endif; ?>
         </section>
     <?php endforeach; ?>
 
