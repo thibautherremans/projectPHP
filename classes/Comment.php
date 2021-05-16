@@ -57,7 +57,8 @@
 
         public function save(){
             session_start();
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
             $statement = $conn->prepare("insert into comments (message, user_id, post_id, post_date) values (:text, :user_id, :post_id, now())");
             $statement->bindValue(":text", $this->getText());
             $statement->bindValue(":user_id", $this->getUserId());
@@ -68,7 +69,8 @@
 
         public function loadComments($id){
             session_start();
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
             $statement = $conn->prepare("select * from comments where post_id = :id");
             $statement->bindValue(":id", $id);
             $statement->execute();

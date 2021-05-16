@@ -36,7 +36,8 @@
         }
 
         public function like(){
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
             $statement = $conn->prepare("insert into likes (post_id, user_id, likeDate) values (:post_id, :id, now())");
             $statement->bindValue(":post_id", $this->getPostId());
             $statement->bindValue(":id", $this->getUserId());
@@ -45,7 +46,8 @@
         }
 
         public function unLike(){
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
             $statement = $conn->prepare("delete from likes where (post_id, user_id) = (:postId, :id)");
             $statement->bindValue(":post_id", $this->getPostId());
             $statement->bindValue(":id", $this->getUserId());
@@ -54,7 +56,8 @@
         }
 
         public function loadLikes($postId){
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
             $statement = $conn->prepare("select * from likes where post_id = :post_id");
             $statement->bindValue(":post_id", $postId);
             $statement->execute();

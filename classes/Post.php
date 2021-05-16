@@ -63,7 +63,8 @@
                     // Upload file to server
                     if(move_uploaded_file($image["tmp_name"], $targetFilePath)){
                         // Insert image file name into database
-                        $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+                        $obj = Db::getInstance();
+                        $conn = $obj->getConnection();
                         $statement = $conn->prepare("insert into posts (imagePath, uploadDate, user_id, description) values (:image, now(), :id, :description)");
 
                         $statement->bindValue(":image", $fileName);
@@ -91,7 +92,8 @@
         }
 
         public function searchTag(){
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
             $statement = $conn->prepare("select * from posts where (tag) like (:tag)");
             $statement->bindValue(":tag", $this->getTag());
             $statement->execute();
@@ -100,7 +102,8 @@
         }
 
         public function loadByUser($id){
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
             $statement = $conn->prepare("select * from posts where (user_id) = (:user_id)");
             $statement->bindValue(":user_id", $id);
             $statement->execute();
@@ -108,7 +111,8 @@
         }
 
         public function load20(){
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
             $statement = $conn->prepare("select * from posts");
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -116,7 +120,8 @@
         }
 
         public function load40(){
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
             $statement = $conn->prepare("select * from posts ordered by id limit 40");
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -124,7 +129,8 @@
         }
 
         public function delete($id){
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
             $statement = $conn->prepare("delete from posts where id = :id");
             $statement2 = $conn->prepare("delete from comments where post_id = :id");
             $statement3 = $conn->prepare("delete from likes where post_id = :id");

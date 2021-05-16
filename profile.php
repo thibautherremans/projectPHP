@@ -84,14 +84,14 @@
             <?php endforeach; ?>
 
             <?php
-                if(!empty($_POST["delete"]))
+                if(!empty($_POST["delete_" . $p['id']]))
                 {
                     $post->delete($p['id']);
                 }
 
                 if($_SESSION['id'] == $id): ?>
                     <form action="" method="post">
-                        <input type="submit" value="delete this post" name="delete" id="delete">
+                        <input type="submit" value="delete this post" name="delete_<?php echo $p['id']?>" id="delete">
                     </form>
             <?php endif; ?>
         </section>

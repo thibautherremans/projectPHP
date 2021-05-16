@@ -10,7 +10,6 @@
                 session_start();
                 $_SESSION['email'] = $_POST['email'];
                 $_SESSION['id'] = $user->getId();
-                var_dump($_SESSION['email']);
                 header("location:index.php");
             }
         }catch(\Throwable $th){
@@ -67,7 +66,7 @@
         <a href="register.php">make an account</a>
 
         <?php if(isset($error)): ?>
-        <div class="error"><?php echo $error; ?></div>
+        <div class="error" style="color: red"><?php echo $error; ?></div>
         <?php endif; ?>
     </main>
 

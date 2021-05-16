@@ -36,7 +36,8 @@
         }
 
         public function follow(){
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
             $statement = $conn->prepare("insert into following (user_id, follower_id) values (:user_id, :follower_id)");
             $statement->bindValue(":user_id", $this->getUserId());
             $statement->bindValue(":follower_id", $this->getFollowerId());

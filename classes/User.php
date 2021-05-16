@@ -1,5 +1,5 @@
 <?php
-    include_once(__DIR__ . "../database/Db.php");
+    include_once(__DIR__ . "./../database/Db.php");
 
     class User{
         private $email;
@@ -12,7 +12,8 @@
         public function getId()
         {
             session_start();
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
             $statement = $conn->prepare("select id from users where (email) = (:email)");
             $statement->bindValue(":email", $_SESSION["email"]);
             $statement->execute();
@@ -32,7 +33,8 @@
         public function getUsernameFromDb()
         {
             session_start();
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
             $statement = $conn->prepare("select username from users where (email) = (:email)");
             $statement->bindValue(":email", $_SESSION["email"]);
             $statement->execute();
@@ -91,7 +93,8 @@
 
         public function canLogin(){
 
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
             $statement = $conn->prepare("select * from users where (email) = (:email)");
 
             $email = $this->getEmail();
@@ -107,8 +110,8 @@
             if(password_verify($password, $hash)){
                 return true;
             }else{
-                return false;
                 throw new Exception("password is not correct!");
+                return false;
             }
         }
 
@@ -165,7 +168,8 @@
         }
 
         public function changeDescription($description){
-                $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
                 $statement = $conn->prepare("UPDATE users SET description = (:description) WHERE users.id = (:id);");
 
                 $statement->bindValue(":description", $description);
@@ -181,7 +185,8 @@
                 ];
                 $password = password_hash($confPass, PASSWORD_DEFAULT, $options);
 
-                $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+                $obj = Db::getInstance();
+                $conn = $obj->getConnection();
                 $statement = $conn->prepare("UPDATE users SET password = (:password) WHERE users.id = (:id)");
                 $statement->bindValue(":password", $password);
                 $statement->bindValue(":id", $_SESSION['id']);
@@ -192,7 +197,8 @@
         }
 
         public function loadInfo($id){
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
             $statement = $conn->prepare("select * from users where id = :id");
             $statement->bindValue(":id", $id);
             $statement->execute();
@@ -217,7 +223,8 @@
                     // Upload file to server
                     if(move_uploaded_file($image["tmp_name"], $targetFilePath)){
                         // Insert image file name into database
-                        $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+                        $obj = Db::getInstance();
+                        $conn = $obj->getConnection();
                         $statement = $conn->prepare("UPDATE users SET profile_picture = (:image) WHERE users.id = (:id)");
 
                         $statement->bindValue(":image",$fileName);
