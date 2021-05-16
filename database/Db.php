@@ -2,10 +2,10 @@
 
 class Db
 {
-    private $host = "localhost";
-    private $db = "technodb";
-    private $user = "root";
-    private $pass = "root";
+    private $host = "ID338159_technogram.db.webhosting.be";
+    private $db = "ID338159_technogram";
+    private $user = "ID338159_technogram";
+    private $pass = "technogram123";
     private $charset = NULL;
     private $opt = NULL;
     private $dsn = NULL;
