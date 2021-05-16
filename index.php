@@ -1,132 +1,16 @@
 <?php
+    session_start();
+    include_once(__DIR__ . "./classes/User.php");
+    include_once(__DIR__ . "./classes/Post.php");
+    include_once(__DIR__ . "./classes/Comment.php");
+    include_once(__DIR__ . "./classes/Like.php");
 
-$i = 0;
+    $i = 0;
 
-$posts = [
-    [
-        "username" => "johnwick",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Yeah man!",
-        "id" => 0
-    ],
-    [
-        "username" => "youngthugg",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ski!",
-        "id" => 1
-    ],
-    [
-        "username" => "stevejobs",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ciao!",
-        "id" => 2
-    ],
-    [
-        "username" => "johnwick",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Yeah man!",
-        "id" => 3
-    ],
-    [
-        "username" => "youngthugg",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ski!",
-        "id" => 4
-    ],
-    [
-        "username" => "stevejobs",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ciao!",
-        "id" => 5
-    ],[
-        "username" => "johnwick",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Yeah man!",
-        "id" =>6
-    ],
-    [
-        "username" => "youngthugg",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ski!",
-        "id" => 7
-    ],
-    [
-        "username" => "stevejobs",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ciao!",
-        "id" => 8
-    ],[
-        "username" => "johnwick",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Yeah man!",
-        "id" => 9
-    ],
-    [
-        "username" => "youngthugg",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ski!",
-        "id" => 10
-    ],
-    [
-        "username" => "stevejobs",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ciao!",
-        "id" =>12
-    ],[
-        "username" => "johnwick",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Yeah man!",
-        "id" =>13
-    ],
-    [
-        "username" => "youngthugg",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ski!",
-        "id" =>14
-    ],
-    [
-        "username" => "stevejobs",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ciao!",
-        "id" => 15
-    ],
-    [
-        "username" => "johnwick",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Yeah man!",
-        "id" => 16
-    ],
-    [
-        "username" => "youngthugg",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ski!",
-        "id" => 17
-    ],
-    [
-        "username" => "stevejobs",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ciao!",
-        "id" => 18
-    ],
-    [
-        "username" => "johnwick",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Yeah man!",
-        "id" =>19
-    ],
-    [
-        "username" => "youngthugg",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ski!",
-        "id" => 20
-    ],
-    [
-        "username" => "stevejobs",
-        "image" => "https://placeimg.com/640/480/any",
-        "description" => "Ciao!",
-        "id" =>21
-    ]
-]
+    $user = new User();
+    $post = new Post();
+
+    $posts = $post->load20();
 
 ?>
 <!DOCTYPE html>
@@ -145,15 +29,47 @@ $posts = [
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         
-    <?php foreach($posts as $post => $v): ?>
-    <?php if (++$i == 21) break; ?>
-    <article >
-        <a href="profile.php?id=<?php echo $v['id'];?>" class="justify-content-center">
-            <h3>a<?php echo $v['username']; ?></h3>
-            <img src="<?php echo $v['image']; ?>" alt="img">
-            <h6><?php echo $v['description']; ?></h6>
-        </a>
-    </article>
+    <?php foreach($posts as $post => $p): ?>
+        <section class="post_<?php echo $p["id"]?>">
+            <?php
+                $info = $user->loadInfo($p['user_id']);
+                $username = $info["username"];
+                $profilepicture = "uploads/profilepictures/" . $info["profile_picture"];
+                if($profilepicture === null){
+                    $profilepicture = "images/basic-profile.png";
+                }
+            ?>
+
+            <img src="<?php echo $profilepicture; ?>" alt="profile picture">
+            <h3><?php echo $username; ?></h3>
+            <img src="uploads/<?php echo $p["imagePath"];?>" alt="<?php echo $p["imagePath"]; ?>">
+            <p><?php echo $p["description"];?></p>
+
+            <?php
+            $l = new Like();
+            $likes = $l->loadLikes($p["id"]);
+            $likesAmount = count($likes);
+            ?>
+            <form action="" method="post">
+                <input type="submit" value="like" name="like" data-postid = "<?php echo $p['id']; ?>" id="btnLike" class="btnLike_<?php echo $p['id']; ?>">
+                <span class="likeAmount"><?php echo $likesAmount ?></span>
+            </form>
+
+            <form action="" method="post">
+                <input class="commentText_<?php echo $p['id']; ?>" type="text" name="comment" placeholder="place comment">
+                <a href="#" class="btnAddComment" data-postid= "<?php echo $p['id'];?>">add comment</a>
+            </form>
+
+            <?php
+            $comment = new Comment;
+            $comments =  $comment->loadComments($p['id']);
+            foreach($comments as $c): ?>
+                <ul class="commentList_<?php echo $p['id']; ?>">
+                    <li><?php echo htmlspecialchars($c["message"]) ; ?> <?php echo $c["post_date"]?></li>
+                </ul>
+            <?php endforeach; ?>
+
+        </section>
     <?php endforeach; ?>
 
     <form action="" method="post">
@@ -161,5 +77,8 @@ $posts = [
     </form>
 
     <script src="loadMore.js"></script>
+    <script src="comment.js"></script>
+    <script src="like.js"></script>
+    <script src="follow.js"></script>
 </body>
 </html>

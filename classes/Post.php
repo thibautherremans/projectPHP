@@ -109,7 +109,7 @@
 
         public function load20(){
             $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
-            $statement = $conn->prepare("select * from posts ordered by id limit 20");
+            $statement = $conn->prepare("select * from posts");
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $result;

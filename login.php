@@ -11,7 +11,7 @@
                 $_SESSION['email'] = $_POST['email'];
                 $_SESSION['id'] = $user->getId();
                 var_dump($_SESSION['email']);
-                //header("location:index.php");
+                header("location:index.php");
             }
         }catch(\Throwable $th){
             $error = $th->getMessage();
