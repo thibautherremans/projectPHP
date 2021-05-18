@@ -3,6 +3,10 @@
     include_once(__DIR__ . "./Post.php");
 
     class Comment{
+        public function __construct()
+        {
+
+        }
         private $text;
         private $user_id;
         private $post_id;

@@ -1,6 +1,10 @@
 <?php
     include_once(__DIR__ . "./../database/Db.php");
     class Follow{
+        public function __construct()
+        {
+
+        }
         private $user_id;
         private $follower_id;
 

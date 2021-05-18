@@ -3,6 +3,10 @@
     include_once(__DIR__ . "User.php");
 
     class Post{
+        public function __construct()
+        {
+
+        }
         private $image;
         private $description;
         private $tag;

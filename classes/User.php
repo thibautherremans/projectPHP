@@ -2,6 +2,10 @@
     include_once(__DIR__ . "./../database/Db.php");
 
     class User{
+        public function __construct()
+        {
+
+        }
         private $email;
         private $password;
         private $picture;
