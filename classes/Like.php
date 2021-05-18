@@ -1,5 +1,12 @@
 <?php
+    include_once(__DIR__ . "./../database/Db.php");
+
     class Like{
+        public function __construct()
+        {
+
+        }
+
         private $post_id;
         private $user_id;
 

@@ -1,5 +1,5 @@
 <?php
-    include_once(__DIR__ . "../database/Db.php");
+    include_once(__DIR__ . "./../database/Db.php");
     include_once(__DIR__ . "User.php");
 
     class Post{
@@ -91,7 +91,7 @@
             echo $statusMsg;
         }
 
-        public function searchTag(){
+        public function searchTag():array{
             $obj = Db::getInstance();
             $conn = $obj->getConnection();
             $statement = $conn->prepare("select * from posts where (tag) like (:tag)");
@@ -101,7 +101,7 @@
             return $result;
         }
 
-        public function loadByUser($id){
+        public function loadByUser($id):array{
             $obj = Db::getInstance();
             $conn = $obj->getConnection();
             $statement = $conn->prepare("select * from posts where (user_id) = (:user_id)");
@@ -110,7 +110,7 @@
             return $statement->fetchAll();
         }
 
-        public function load20(){
+        public function load20():array{
             $obj = Db::getInstance();
             $conn = $obj->getConnection();
             $statement = $conn->prepare("select * from posts");
@@ -119,7 +119,7 @@
             return $result;
         }
 
-        public function load40(){
+        public function load40():array{
             $obj = Db::getInstance();
             $conn = $obj->getConnection();
             $statement = $conn->prepare("select * from posts ordered by id limit 40");

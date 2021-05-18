@@ -1,4 +1,5 @@
 <?php
+    include_once(__DIR__ . "./../database/Db.php");
     class Follow{
         private $user_id;
         private $follower_id;
@@ -36,8 +37,7 @@
         }
 
         public function follow(){
-            $obj = Db::getInstance();
-            $conn = $obj->getConnection();
+            $conn = new PDO('mysql:host=localhost;dbname=test', "root", "root");
             $statement = $conn->prepare("insert into following (user_id, follower_id) values (:user_id, :follower_id)");
             $statement->bindValue(":user_id", $this->getUserId());
             $statement->bindValue(":follower_id", $this->getFollowerId());

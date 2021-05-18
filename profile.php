@@ -4,6 +4,7 @@
     include_once(__DIR__ . "./classes/Post.php");
     include_once(__DIR__ . "./classes/Comment.php");
     include_once(__DIR__ . "./classes/Like.php");
+    include_once(__DIR__ . "./database/Db.php");
 
     $i = 0;
 
@@ -16,10 +17,12 @@
     $email = $info["email"];
     $description = $info["description"];
     $posts = $post->loadByUser($id);
+    $profilepicture = $info["profile_picture"];
 
-    $profilepicture = "uploads/profilepictures/" . $info["profile_picture"];
     if($profilepicture === null){
         $profilepicture = "images/basic-profile.png";
+    }else{
+        $profilepicture = "uploads/profilepictures/" . $info["profile_picture"];
     }
 ?>
 
@@ -56,12 +59,12 @@
         <?php if (++$i == 21) break; ?>
         <section class="post_<?php echo $p["id"]?>">
 
-            <img src="uploads/<?php echo $p["imagePath"];?>" alt="<?php echo $p["imagePath"]; ?>">
+            <img src="uploads/<?php echo $p["imagePath"];?>" alt="<?php echo $p["imagePath"];?>">
             <p><?php echo $p["description"];?></p>
 
             <?php
-                $l = new Like();
-                $likes = $l->loadLikes($p["id"]);
+                $like = new Like();
+                $likes = $like->loadLikes($p["id"]);
                 $likesAmount = count($likes);
             ?>
             <form action="" method="post">

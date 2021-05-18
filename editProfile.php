@@ -2,11 +2,13 @@
     session_start();
     include_once(__DIR__ . "./classes/User.php");
     include_once(__DIR__ . "./classes/Post.php");
+    $u = new User();
+    $p = new Post();
     //$profilePicture = User::getPicture();
-    $name = User::getUsernameFromDb();
+    $name = $u->getUsernameFromDb();
     $email = $_SESSION["email"];
-    $userId = User::getId();;
-    $posts = Post::loadByUser($userId);
+    $userId = $u->getId();
+    $posts = $p->loadByUser($userId);
 
    try {
        if(!empty($_POST['name']))
@@ -73,7 +75,7 @@
     <?php endif; ?>
 
     <section class="info">
-        <h2><?php echo $name["username"]; ?></h2>
+        <h2><?php echo $name; ?></h2>
         <h3><?php echo $email ?></h3>
 
         <form action="" method="post" enctype="multipart/form-data">

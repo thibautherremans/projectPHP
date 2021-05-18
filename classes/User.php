@@ -121,7 +121,8 @@
             ];
             $password = password_hash($this->getPassword(), PASSWORD_DEFAULT, $options);
 
-            $conn = new PDO('mysql:host=localhost;dbname=technodb', "root", "root");
+            $obj = Db::getInstance();
+            $conn = $obj->getConnection();
             $statement = $conn->prepare("insert into users (email, password, username) values (:email, :password, :username)");
 
             $statement->bindValue(":email", $this->getEmail());

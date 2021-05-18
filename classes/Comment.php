@@ -67,7 +67,7 @@
             return $result;
         }
 
-        public function loadComments($id){
+        public function loadComments($id):array{
             session_start();
             $obj = Db::getInstance();
             $conn = $obj->getConnection();

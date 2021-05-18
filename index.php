@@ -4,6 +4,8 @@
     include_once(__DIR__ . "./classes/Post.php");
     include_once(__DIR__ . "./classes/Comment.php");
     include_once(__DIR__ . "./classes/Like.php");
+    include_once(__DIR__ . "./database/Db.php");
+
 
     $i = 0;
 
@@ -34,14 +36,18 @@
             <?php
                 $info = $user->loadInfo($p['user_id']);
                 $username = $info["username"];
-                $profilepicture = "uploads/profilepictures/" . $info["profile_picture"];
-                if($profilepicture === null){
-                    $profilepicture = "images/basic-profile.png";
-                }
-            ?>
+                $profilepicture = $info["profile_picture"];
 
-            <img src="<?php echo $profilepicture; ?>" alt="profile picture">
-            <h3><?php echo $username; ?></h3>
+            if($profilepicture === null){
+                $profilepicture = "images/basic-profile.png";
+            }else{
+                $profilepicture = "uploads/profilepictures/" . $info["profile_picture"];
+            }
+            ?>
+            <a href="profile.php?id=<?php echo $p["user_id"]; ?>">
+                <img src="<?php echo $profilepicture; ?>" alt="profile picture">
+                <h3><?php echo $username; ?></h3>
+            </a>
             <img src="uploads/<?php echo $p["imagePath"];?>" alt="<?php echo $p["imagePath"]; ?>">
             <p><?php echo $p["description"];?></p>
 
