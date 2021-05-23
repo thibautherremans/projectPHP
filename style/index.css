@@ -1,0 +1,60 @@
+body{
+    text-align: center;
+}
+
+#postsSection{
+    background-color: lightgrey;
+    margin-right: 25em;
+    margin-left: 25em;
+    margin-top: 2em;
+    padding: 1em;
+    border-radius: 1em;
+    margin-bottom: 2em;
+}
+
+#profilepicture{
+    width: 100px;
+    border-radius: 2em;
+}
+
+#postImage {
+    width: 35em;
+    border-radius: 2em;
+}
+
+#postLink{
+    text-decoration: none;
+    color: black;
+}
+
+#btnLike{
+    margin-right: 2em;
+    border: none;
+    width: 3em;
+    border-radius: 0.3em;
+    margin-bottom: 1em;
+}
+
+#postInputComment{
+    border: 0;
+    width: 15em;
+    border-bottom-left-radius: 0.3em;
+    border-top-left-radius: 0.3em;
+    margin-bottom: 1em;
+}
+
+.btnAddComment{
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    border-top-right-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+    padding: 0.1em;
+}
+
+#postCommentList{
+    list-style-type: none;
+}
+
+
+

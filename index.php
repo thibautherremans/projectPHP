@@ -22,6 +22,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style/index.css">
     <title>Document</title>
 </head>
 <body>
@@ -32,7 +33,7 @@
         </form>
         
     <?php foreach($posts as $post => $p): ?>
-        <section class="post_<?php echo $p["id"]?>">
+        <section class="post_<?php echo $p["id"]?>" id="postsSection">
             <?php
                 $info = $user->loadInfo($p['user_id']);
                 $username = $info["username"];
@@ -44,11 +45,11 @@
                 $profilepicture = "uploads/profilepictures/" . $info["profile_picture"];
             }
             ?>
-            <a href="profile.php?id=<?php echo $p["user_id"]; ?>">
-                <img src="<?php echo $profilepicture; ?>" alt="profile picture">
-                <h3><?php echo $username; ?></h3>
+            <a href="profile.php?id=<?php echo $p["user_id"]; ?>" id="postLink">
+                <img src="<?php echo $profilepicture; ?>" alt="profile picture" id="profilepicture">
+                <h3 id="postUsername"><?php echo htmlspecialchars($username); ?></h3>
             </a>
-            <img src="uploads/<?php echo $p["imagePath"];?>" alt="<?php echo $p["imagePath"]; ?>">
+            <img src="uploads/<?php echo $p["imagePath"];?>" alt="<?php echo $p["imagePath"]; ?>" id="postImage">
             <p><?php echo $p["description"];?></p>
 
             <?php
@@ -62,7 +63,7 @@
             </form>
 
             <form action="" method="post">
-                <input class="commentText_<?php echo $p['id']; ?>" type="text" name="comment" placeholder="place comment">
+                <input class="commentText_<?php echo $p['id']; ?>" type="text" name="comment" placeholder="place comment" id="postInputComment">
                 <a href="#" class="btnAddComment" data-postid= "<?php echo $p['id'];?>">add comment</a>
             </form>
 
@@ -70,7 +71,7 @@
             $comment = new Comment;
             $comments =  $comment->loadComments($p['id']);
             foreach($comments as $c): ?>
-                <ul class="commentList_<?php echo $p['id']; ?>">
+                <ul class="commentList_<?php echo $p['id']; ?>" id="postCommentList">
                     <li><?php echo htmlspecialchars($c["message"]) ; ?> <?php echo $c["post_date"]?></li>
                 </ul>
             <?php endforeach; ?>

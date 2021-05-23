@@ -75,8 +75,8 @@
     <?php endif; ?>
 
     <section class="info">
-        <h2><?php echo $name; ?></h2>
-        <h3><?php echo $email ?></h3>
+        <h2><?php echo htmlspecialchars($name); ?></h2>
+        <h3><?php echo htmlspecialchars($email) ?></h3>
 
         <form action="" method="post" enctype="multipart/form-data">
             <input type="file" name="profilePicture">
