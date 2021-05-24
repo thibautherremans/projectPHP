@@ -1,0 +1,84 @@
+body{
+    box-sizing: border-box;
+}
+
+.info{
+    text-align: center;
+    background-color: darkgrey;
+    padding-bottom: 2em;
+}
+
+#profileProfilepicture{
+    width: 400px;
+    border-radius: 2em;
+    margin-top: 2em;
+}
+
+.btnFollow{
+    margin-bottom: 1em;
+    border: none;
+    padding: 0.3em;
+    border-radius: 0.3em;
+}
+#btnEdit{
+    text-decoration: none;
+    background-color: dodgerblue;
+    color: white;
+    font-weight: bold;
+    padding: 0.5em 1em;
+    border-radius: 0.3em;
+}
+
+#profilePost{
+    text-align: center;
+    background-color: lightgrey;
+    margin-right: 25em;
+    margin-left: 25em;
+    margin-top: 2em;
+    padding: 1em;
+    border-radius: 1em;
+    margin-bottom: 2em;
+}
+
+#profilePostPicture{
+    width: 35em;
+    border-radius: 2em;
+}
+
+#btnLike{
+    margin-right: 2em;
+    border: none;
+    width: 3em;
+    border-radius: 0.3em;
+    margin-bottom: 1em;
+}
+
+#postInputComment{
+    border: 0;
+    width: 15em;
+    border-bottom-left-radius: 0.3em;
+    border-top-left-radius: 0.3em;
+    margin-bottom: 1em;
+}
+
+.btnAddComment{
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    border-top-right-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+    padding: 0.1em;
+}
+
+#postCommentList{
+    list-style-type: none;
+}
+
+#delete{
+    border: none;
+    background-color: red;
+    font-weight: bold;
+    color: white;
+    padding: 0.4em;
+    border-radius: 0.3em;
+}
