@@ -1,14 +1,17 @@
 <?php
 
     include_once(__DIR__ . "/classes/Post.php");
+    include_once(__DIR__ . "/classes/Image.php");
 
     try{
         if(!empty($_POST))
         {
+            $image = new Image();
+            $image->checkType($_FILES["uploadImage"]);
+            $image->uploadImagePost($_FILES["uploadImage"], $_POST["description"]);
+
             $post = new Post();
-            $post->uploadImage($_FILES["uploadImage"], $_POST["description"]);
             $post->setDescription($_POST["description"]);
-            $post->setTag($_POST["tag"]);
         }
     }catch(\Throwable $th){
         $error = $th->getMessage();

@@ -2,9 +2,10 @@
     session_start();
     include_once(__DIR__ . "./classes/User.php");
     include_once(__DIR__ . "./classes/Post.php");
+    include_once(__DIR__ . "./classes/Image.php");
     $u = new User();
     $p = new Post();
-    //$profilePicture = User::getPicture();
+
     $name = $u->getUsernameFromDb();
     $email = $_SESSION["email"];
     $userId = $u->getId();
@@ -51,10 +52,16 @@
         $error = $th->getMessage();
     }
 
-    if(!empty($_FILES['profilePicture']))
-    {
-        $user = new User();
-        $user->uploadProfilepicture($_FILES['profilePicture']);
+    try{
+        if(!empty($_FILES['profilePicture']))
+        {
+            $image = new Image();
+            $image->checkType($_FILES["profilePicture"]);
+            $image->uploadImageProfile($_FILES["profilePicture"]);
+
+        }
+    }catch(\Throwable $th){
+        $error = $th->getMessage();
     }
 
 ?>
