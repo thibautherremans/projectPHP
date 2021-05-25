@@ -78,7 +78,12 @@
             $statement = $conn->prepare("select * from posts ORDER BY id DESC");
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
+            if($result){
+                return $result;
+            }else{
+            throw new Exception("there is a problem with this page, try again later");
+            }
+
         }
 
         public function load40():array{
