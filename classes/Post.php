@@ -66,7 +66,7 @@
         public function loadByUser($id):array{
             $obj = Db::getInstance();
             $conn = $obj->getConnection();
-            $statement = $conn->prepare("select * from posts where (user_id) = (:user_id)");
+            $statement = $conn->prepare("select * from posts where (user_id) = (:user_id) ORDER BY id DESC");
             $statement->bindValue(":user_id", $id);
             $statement->execute();
             return $statement->fetchAll();
@@ -75,7 +75,7 @@
         public function load20():array{
             $obj = Db::getInstance();
             $conn = $obj->getConnection();
-            $statement = $conn->prepare("select * from posts");
+            $statement = $conn->prepare("select * from posts ORDER BY id DESC");
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $result;

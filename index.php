@@ -12,7 +12,11 @@
     $user = new User();
     $post = new Post();
 
-    $posts = $post->load20();
+    try{
+        $posts = $post->load20();
+    }catch(\Throwable $th){
+        $error = $th->getMessage();
+    }
 
 ?>
 <!DOCTYPE html>
@@ -31,7 +35,11 @@
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
-        
+
+    <?php if(!isset($error)): ?>
+        <div><?php echo $error ?></div>
+    <?php endif; ?>
+
     <?php foreach($posts as $post => $p): ?>
         <section class="post_<?php echo $p["id"]?>" id="postsSection">
             <?php

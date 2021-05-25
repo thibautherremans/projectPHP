@@ -11,13 +11,18 @@
     $u = new User();
     $post = new Post();
 
-    $id = $_GET['id'];
-    $info = $u->loadInfo($id);
-    $name = $info["username"];
-    $email = $info["email"];
-    $description = $info["description"];
-    $posts = $post->loadByUser($id);
-    $profilepicture = $info["profile_picture"];
+    try{
+        $id = $_GET['id'];
+        $info = $u->loadInfo($id);
+        $name = $info["username"];
+        $email = $info["email"];
+        $description = $info["description"];
+        $posts = $post->loadByUser($id);
+        $profilepicture = $info["profile_picture"];
+    }catch(\Throwable $th){
+        $error = $th->getMessage();
+    }
+
 
     if($profilepicture === null){
         $profilepicture = "images/basic-profile.png";
@@ -39,6 +44,10 @@
 </head>
 <body>
     <?php include_once("nav.inc.php");?>
+
+    <?php if(isset( $error)): ?>
+        <div><?php echo $error ?></div>
+    <?php endif; ?>
 
     <section class="info">
         <img src="<?php echo $profilepicture; ?>" alt="profile picture" id="profileProfilepicture">
