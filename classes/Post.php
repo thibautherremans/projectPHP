@@ -73,7 +73,6 @@
         }
 
         public function load20():array{
-            echo "we zitten heir a mattie";
             $obj = Db::getInstance();
             $conn = $obj->getConnection();
             $statement = $conn->prepare("select * from posts ORDER BY id DESC");
