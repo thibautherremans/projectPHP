@@ -1,12 +1,11 @@
 <?php
     session_start();
-    include_once(__DIR__ . "./classes/User.php");
-    include_once(__DIR__ . "./classes/Post.php");
-    include_once(__DIR__ . "./classes/Comment.php");
-    include_once(__DIR__ . "./classes/Like.php");
-    include_once(__DIR__ . "./database/Db.php");
+    include_once(__DIR__ . "/classes/User.php");
+    include_once(__DIR__ . "/classes/Post.php");
+    include_once(__DIR__ . "/classes/Comment.php");
+    include_once(__DIR__ . "/classes/Like.php");
+    include_once(__DIR__ . "/database/Db.php");
 
-    $i = 0;
 
     $u = new User();
     $post = new Post();
