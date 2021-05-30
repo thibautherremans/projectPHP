@@ -11,7 +11,7 @@
             $user->register();
             $_SESSION['email'] = $_POST['email'];
             $_SESSION['id'] = $user->getId();
-            //header("location: index.php");
+            header("location: login.php");
 
         }catch(\Throwable $th){
             $error = $th->getMessage();

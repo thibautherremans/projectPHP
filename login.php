@@ -33,8 +33,6 @@
 </head>
 <body class="text-center">
 
-    <?php include_once(__DIR__ . "/nav.inc.php"); ?>
-
     <header class="login__head m-auto">
         <img src="/images/logo-insta.png" alt="" class="mb-4" width="70" height="70">
         <h1 class="h3 mb-3 fw-normal">Please login</h1>

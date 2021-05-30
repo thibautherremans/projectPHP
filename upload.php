@@ -31,7 +31,7 @@
     <?php include_once("nav.inc.php");?>
 
     <?php if(isset($error)): ?>
-    <div><?php echo $error ?></div>
+        <div><?php echo $error ?></div>
     <?php endif; ?>
     <form action="" method="post" enctype="multipart/form-data">
         //select a picture

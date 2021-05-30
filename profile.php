@@ -88,11 +88,12 @@
                 <a href="#" class="btnAddComment" data-postid= "<?php echo $p['id'];?>">add comment</a>
             </form>
 
-            <?php
+
+            <ul class="commentList_<?php echo $p['id']; ?>" id="postCommentList">
+                <?php
                 $comment = new Comment;
                 $comments =  $comment->loadComments($p['id']);
                 foreach($comments as $c): ?>
-            <ul class="commentList_<?php echo $p['id']; ?>" id="postCommentList">
                 <li><?php echo htmlspecialchars($c["message"]) ; ?> <?php echo $c["post_date"]?></li>
             </ul>
             <?php endforeach; ?>
